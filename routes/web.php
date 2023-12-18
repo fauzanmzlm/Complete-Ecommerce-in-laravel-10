@@ -15,6 +15,7 @@
     use App\Http\Controllers\PayPalController;
     use App\Http\Controllers\NotificationController;
     use App\Http\Controllers\HomeController;
+    use Illuminate\Support\Facades\Auth;
     use \UniSharp\LaravelFilemanager\Lfm;
 
     /*

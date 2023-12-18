@@ -141,7 +141,7 @@
 									</ul>
 									<div class="button5">
 										<a href="{{route('checkout')}}" class="btn">Checkout</a>
-										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a>
+										<a href="{{route('product-grids')}}" class="btn">Explore More Equipment</a>
 									</div>
 								</div>
 							</div>
