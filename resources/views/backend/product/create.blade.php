@@ -3,7 +3,7 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Add Product</h5>
+    <h5 class="card-header">Add Equipment</h5>
     <div class="card-body">
       <form method="post" action="{{route('product.store')}}">
         {{csrf_field()}}
@@ -117,7 +117,7 @@
           <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>

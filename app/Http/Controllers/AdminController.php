@@ -10,11 +10,12 @@ use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 class AdminController extends Controller
 {
     public function index(){
-        $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+        $data = User::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
         ->where('created_at', '>', Carbon::today()->subDay(6))
         ->groupBy('day_name','day')
         ->orderBy('day')
@@ -40,10 +41,10 @@ class AdminController extends Controller
         $data=$request->all();
         $status=$user->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated your profile');
+            session()->flash('success','Successfully updated your profile');
         }
         else{
-            request()->session()->flash('error','Please try again!');
+            session()->flash('error','Please try again!');
         }
         return redirect()->back();
     }
@@ -70,10 +71,10 @@ class AdminController extends Controller
         // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Setting successfully updated');
+            session()->flash('success','Setting successfully updated');
         }
         else{
-            request()->session()->flash('error','Please try again');
+            session()->flash('error','Please try again');
         }
         return redirect()->route('admin');
     }
@@ -126,22 +127,22 @@ class AdminController extends Controller
             //Regenerate the storage link folder
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                session()->flash('success', 'Successfully storage linked.');
                 return redirect()->back();
             }
             catch(\Exception $exception){
-                request()->session()->flash('error', $exception->getMessage());
+                session()->flash('error', $exception->getMessage());
                 return redirect()->back();
             }
         }
         else{
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                session()->flash('success', 'Successfully storage linked.');
                 return redirect()->back();
             }
             catch(\Exception $exception){
-                request()->session()->flash('error', $exception->getMessage());
+                session()->flash('error', $exception->getMessage());
                 return redirect()->back();
             }
         }

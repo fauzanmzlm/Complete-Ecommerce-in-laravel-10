@@ -32,7 +32,7 @@
     // CACHE CLEAR ROUTE
     Route::get('cache-clear', function () {
         Artisan::call('optimize:clear');
-        request()->session()->flash('success', 'Successfully cache cleared.');
+        session()->flash('success', 'Successfully cache cleared.');
         return redirect()->back();
     })->name('cache.clear');
 
@@ -111,12 +111,7 @@
 // Post Comment
     Route::post('post/{slug}/comment', [PostCommentController::class, 'store'])->name('post-comment.store');
     Route::resource('/comment', 'PostCommentController');
-// Coupon
-    Route::post('/coupon-store', [CouponController::class, 'couponStore'])->name('coupon-store');
-// Payment
-    Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
-    Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');
-    Route::get('payment/success', [PayPalController::class, 'success'])->name('payment.success');
+
 
 
 // Backend section start
@@ -153,10 +148,7 @@
 
         // Order
         Route::resource('/order', 'OrderController');
-        // Shipping
-        Route::resource('/shipping', 'ShippingController');
-        // Coupon
-        Route::resource('/coupon', 'CouponController');
+ 
         // Settings
         Route::get('settings', [AdminController::class, 'settings'])->name('settings');
         Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');

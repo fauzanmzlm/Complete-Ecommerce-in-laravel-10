@@ -28,7 +28,7 @@
           <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary text-white">
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>
@@ -45,7 +45,7 @@
           <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>

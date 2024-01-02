@@ -25,7 +25,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="">Shop Details</a></li>
+								<li class="active"><a href="">Equipment Details</a></li>
 							</ul>
 						</div>
 					</div>
@@ -81,10 +81,10 @@
 													</ul>
 													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
                                                 </div>
-                                                @php 
+                                                {{-- @php 
                                                     $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
                                                 @endphp
-												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
+												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p> --}}
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
 											<!--/ End Description -->
@@ -115,6 +115,18 @@
 												</div>
 											@endif
 											<!--/ End Size -->
+											<!-- Date Book -->
+											<br>
+											<div class="size mt-4">
+												<h4 style="margin-bottom: 10px;">From Date</h4>
+												<input type="date" id="birthday" name="birthday" class="form-control">
+											</div>	
+											<br>
+											<div class="size mt-4">
+												<h4 style="margin-bottom: 10px;">To Date</h4>
+												<input type="date" id="birthday" name="birthday" class="form-control">
+											</div>	
+											<!-- End Date Book -->
 											<!-- Product Buy -->
 											<div class="product-buy">
 												<form action="{{route('single-add-to-cart')}}" method="POST">
@@ -327,8 +339,8 @@
 											@endphp
                                             <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                             <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <span class="price-dec">{{$data->discount}} % Off</span>
-                                                                    {{-- <span class="out-of-stock">Hot</span> --}}
+                                            {{-- <span class="price-dec">{{$data->discount}} % Off</span> --}}
+                                                                    <span class="out-of-stock">Hot</span>
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
@@ -343,13 +355,13 @@
                                     </div>
                                     <div class="product-content">
                                         <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
-                                        <div class="product-price">
+                                        {{-- <div class="product-price">
                                             @php 
                                                 $after_discount=($data->price-(($data->discount*$data->price)/100));
                                             @endphp
                                             <span class="old">${{number_format($data->price,2)}}</span>
                                             <span>${{number_format($after_discount,2)}}</span>
-                                        </div>
+                                        </div> --}}
                                       
                                     </div>
                                 </div>

@@ -15,7 +15,7 @@
                 <div class="carousel-item {{(($key==0)? 'active' : '')}}">
                     <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
                     <div class="carousel-caption d-none d-md-block text-left">
-                        <h1 class="wow fadeInDown">{{$banner->title}}</h1>
+                        <h1 class="wow fadeInDown ts-custom">{{$banner->title}}</h1>
                         <p>{!! html_entity_decode($banner->description) !!}</p>
                         <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">Book Now<i class="far fa-arrow-alt-circle-right"></i></i></a>
                     </div>
@@ -140,13 +140,13 @@
                                         </div>
                                         <div class="product-content">
                                             <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                            <div class="product-price">
+                                            {{-- <div class="product-price">
                                                 @php
                                                     $after_discount=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
                                                 <span>${{number_format($after_discount,2)}}</span>
                                                 <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -234,13 +234,13 @@
                             </div>
                             <div class="product-content">
                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                <div class="product-price">
+                                {{-- <div class="product-price">
                                     <span class="old">${{number_format($product->price,2)}}</span>
                                     @php
                                     $after_discount=($product->price-($product->price*$product->discount)/100)
                                     @endphp
                                     <span>${{number_format($after_discount,2)}}</span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- End Single Product -->

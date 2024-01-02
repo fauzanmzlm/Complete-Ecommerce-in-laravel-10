@@ -76,7 +76,7 @@
         </a>
         <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Product Options:</h6>
+            <h6 class="collapse-header">Equipment Options:</h6>
             <a class="collapse-item" href="{{route('product.index')}}">Equipments</a>
             <a class="collapse-item" href="{{route('product.create')}}">Add Equipment</a>
           </div>
@@ -99,7 +99,7 @@
     </li>
 
     {{-- Shipping --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#shippingCollapse" aria-expanded="true" aria-controls="shippingCollapse">
           <i class="fas fa-truck"></i>
           <span>Shipping</span>
@@ -111,7 +111,7 @@
             <a class="collapse-item" href="{{route('shipping.create')}}">Add Shipping</a>
           </div>
         </div>
-    </li>
+    </li> --}}
 
     <!--Orders -->
     <li class="nav-item">
@@ -197,11 +197,11 @@
     <div class="sidebar-heading">
         General Settings
     </div>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" href="{{route('coupon.index')}}">
           <i class="fas fa-table"></i>
           <span>Coupon</span></a>
-    </li>
+    </li> --}}
      <!-- Users -->
      <li class="nav-item">
         <a class="nav-link" href="{{route('users.index')}}">

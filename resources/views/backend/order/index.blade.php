@@ -9,7 +9,7 @@
          </div>
      </div>
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Order Lists</h6>
+      <h6 class="m-0 font-weight-bold text-primary float-left">Booking Lists</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,12 +18,12 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Order No.</th>
+              <th>Booking No.</th>
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
-              <th>Total Amount</th>
+              {{-- <th>Charge</th>
+              <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -35,25 +35,25 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
-              <th>Total Amount</th>
+              {{-- <th>Charge</th>
+              <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
             @foreach($orders as $order)  
-            @php
+            {{-- @php
                 $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp 
+            @endphp  --}}
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{$order->order_number}}</td>
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-                    <td>${{number_format($order->total_amount,2)}}</td>
+                    {{-- <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
+                    <td>${{number_format($order->total_amount,2)}}</td> --}}
                     <td>
                         @if($order->status=='new')
                           <span class="badge badge-primary">{{$order->status}}</span>
@@ -80,7 +80,7 @@
         </table>
         <span style="float:right">{{$orders->links()}}</span>
         @else
-          <h6 class="text-center">No orders found!!! Please order some products</h6>
+          <h6 class="text-center">No bookings found!!! Please order some equipments</h6>
         @endif
       </div>
     </div>
@@ -112,7 +112,7 @@
             "columnDefs":[
                 {
                     "orderable":false,
-                    "targets":[8]
+                    "targets":[6]
                 }
             ]
         } );

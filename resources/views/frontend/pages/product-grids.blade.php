@@ -11,7 +11,7 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                            <li class="active"><a href="blog-single.html">Equipments</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,28 +62,42 @@
                                 </div>
                                 <!--/ End Single Widget -->
                                 <!-- Shop By Price -->
-                                    <div class="single-widget range">
-                                        <h3 class="title">Shop by Price</h3>
-                                        <div class="price-filter">
-                                            <div class="price-filter-inner">
-                                                @php
-                                                    $max=DB::table('products')->max('price');
-                                                    // dd($max);
-                                                @endphp
-                                                <div id="slider-range" data-min="0" data-max="{{$max}}"></div>
-                                                <div class="product_filter">
-                                                <button type="submit" class="filter_button">Filter</button>
-                                                <div class="label-input">
-                                                    <span>Range:</span>
-                                                    <input style="" type="text" id="amount" readonly/>
-                                                    <input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif"/>
-                                                </div>
-                                                </div>
+                                {{-- <div class="single-widget range">
+                                    <h3 class="title">Shop by Price</h3>
+                                    <div class="price-filter">
+                                        <div class="price-filter-inner">
+                                            @php
+                                                $max=DB::table('products')->max('price');
+                                                // dd($max);
+                                            @endphp
+                                            <div id="slider-range" data-min="0" data-max="{{$max}}"></div>
+                                            <div class="product_filter">
+                                            <button type="submit" class="filter_button">Filter</button>
+                                            <div class="label-input">
+                                                <span>Range:</span>
+                                                <input style="" type="text" id="amount" readonly/>
+                                                <input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif"/>
+                                            </div>
                                             </div>
                                         </div>
-
                                     </div>
+
+                                </div> --}}
                                     <!--/ End Shop By Price -->
+                                
+                                <!-- Single Widget -->
+                                <div class="single-widget category">
+                                    <h3 class="title">Brands</h3>
+                                    <ul class="categor-list">
+                                        @php
+                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
+                                        @endphp
+                                        @foreach($brands as $brand)
+                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <!--/ End Single Widget -->
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
                                     <h3 class="title">Recent post</h3>
@@ -99,28 +113,15 @@
                                             </div>
                                             <div class="content">
                                                 <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
-                                                @php
+                                                {{-- @php
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>
+                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p> --}}
 
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
                                     @endforeach
-                                </div>
-                                <!--/ End Single Widget -->
-                                <!-- Single Widget -->
-                                <div class="single-widget category">
-                                    <h3 class="title">Brands</h3>
-                                    <ul class="categor-list">
-                                        @php
-                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
-                                        @endphp
-                                        @foreach($brands as $brand)
-                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
-                                        @endforeach
-                                    </ul>
                                 </div>
                                 <!--/ End Single Widget -->
                         </div>
@@ -189,11 +190,11 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                                @php
+                                                {{-- @php
                                                     $after_discount=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
                                                 <span>${{number_format($after_discount,2)}}</span>
-                                                <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                                                <del style="padding-left:4%;">${{number_format($product->price,2)}}</del> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -282,27 +283,14 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            @php
+                                            {{-- @php
                                                 $after_discount=($product->price-($product->price*$product->discount)/100);
                                             @endphp
-                                            <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
+                                            <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3> --}}
                                             <div class="quickview-peragraph">
                                                 <p>{!! html_entity_decode($product->summary) !!}</p>
                                             </div>
                                             @if($product->size)
-                                                <div class="size">
-                                                    <h4>Size</h4>
-                                                    <ul>
-                                                        @php
-                                                            $sizes=explode(',',$product->size);
-                                                            // dd($sizes);
-                                                        @endphp
-                                                        @foreach($sizes as $size)
-                                                        <li><a href="#" class="one">{{$size}}</a></li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
                                             <div class="size">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-12">
@@ -328,6 +316,7 @@
                                                     </div> --}}
                                                 </div>
                                             </div>
+                                            @endif
                                             <form action="{{route('single-add-to-cart')}}" method="POST">
                                                 @csrf
                                                 <div class="quantity">

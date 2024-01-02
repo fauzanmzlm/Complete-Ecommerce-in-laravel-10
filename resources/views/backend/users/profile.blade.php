@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <div class="image">
+                    <div class="image" style="">
                         @if($profile->photo)
                         <img class="card-img-top img-fluid roundend-circle mt-4" style="border-radius:50%;height:80px;width:80px;margin:auto;" src="{{$profile->photo}}" alt="profile picture">
                         @else 
@@ -58,7 +58,7 @@
                       <label for="inputPhoto" class="col-form-label">Photo</label>
                       <div class="input-group">
                           <span class="input-group-btn">
-                              <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                              <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white text-white">
                               <i class="fa fa-picture-o"></i> Choose
                               </a>
                           </span>

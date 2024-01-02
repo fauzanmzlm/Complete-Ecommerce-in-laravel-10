@@ -57,6 +57,11 @@
     margin-left: 0px;
     }
 
+
+    .ts-custom {
+        -webkit-text-stroke: 0.5px white;
+    }
+
     /*
 </style>
 @stack('styles')

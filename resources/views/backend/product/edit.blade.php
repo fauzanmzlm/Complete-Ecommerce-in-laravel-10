@@ -3,7 +3,7 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Edit Product</h5>
+    <h5 class="card-header">Edit Equipment</h5>
     <div class="card-body">
       <form method="post" action="{{route('product.update',$product->id)}}">
         @csrf 

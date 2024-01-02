@@ -49,10 +49,10 @@ class BrandController extends Controller
         // return $data;
         $status=Brand::create($data);
         if($status){
-            request()->session()->flash('success','Brand successfully created');
+            session()->flash('success','Brand successfully created');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            session()->flash('error','Error, Please try again');
         }
         return redirect()->route('brand.index');
     }
@@ -78,7 +78,7 @@ class BrandController extends Controller
     {
         $brand=Brand::find($id);
         if(!$brand){
-            request()->session()->flash('error','Brand not found');
+            session()->flash('error','Brand not found');
         }
         return view('backend.brand.edit')->with('brand',$brand);
     }
@@ -101,10 +101,10 @@ class BrandController extends Controller
        
         $status=$brand->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Brand successfully updated');
+            session()->flash('success','Brand successfully updated');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            session()->flash('error','Error, Please try again');
         }
         return redirect()->route('brand.index');
     }
@@ -121,15 +121,15 @@ class BrandController extends Controller
         if($brand){
             $status=$brand->delete();
             if($status){
-                request()->session()->flash('success','Brand successfully deleted');
+                session()->flash('success','Brand successfully deleted');
             }
             else{
-                request()->session()->flash('error','Error, Please try again');
+                session()->flash('error','Error, Please try again');
             }
             return redirect()->route('brand.index');
         }
         else{
-            request()->session()->flash('error','Brand not found');
+            session()->flash('error','Brand not found');
             return redirect()->back();
         }
     }

@@ -2953,7 +2953,7 @@ Version:1.0
 	text-align: center;
 }
 .shopping-summery tbody tr {
-	border-bottom: 1px solid #F7941D;
+	border-bottom: 1px solid rgb(240, 240, 240);
 	margin-top: 20px;
 }
 .shopping-summery tbody tr img {
