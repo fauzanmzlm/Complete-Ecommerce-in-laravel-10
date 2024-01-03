@@ -11,8 +11,6 @@
     use App\Http\Controllers\OrderController;
     use App\Http\Controllers\ProductReviewController;
     use App\Http\Controllers\PostCommentController;
-    use App\Http\Controllers\CouponController;
-    use App\Http\Controllers\PayPalController;
     use App\Http\Controllers\NotificationController;
     use App\Http\Controllers\HomeController;
     use Illuminate\Support\Facades\Auth;
@@ -28,6 +26,8 @@
     | contains the "web" middleware group. Now create something great!
     |
     */
+
+    
 
     // CACHE CLEAR ROUTE
     Route::get('cache-clear', function () {
@@ -50,7 +50,7 @@
     Route::get('user/register', [FrontendController::class, 'register'])->name('register.form');
     Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 // Reset password
-    Route::post('password-reset', [FrontendController::class, 'showResetForm'])->name('password.reset');
+    Route::get('password-reset', [FrontendController::class, 'showResetForm'])->name('password.reset');
 // Socialite
     Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
     Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
@@ -158,14 +158,17 @@
         Route::get('/notifications', [NotificationController::class, 'index'])->name('all.notification');
         Route::delete('/notification/{id}', [NotificationController::class, 'delete'])->name('notification.delete');
         // Password Change
-        Route::get('change-password', [AdminController::class, 'changePassword'])->name('change.password.form');
-        Route::post('change-password', [AdminController::class, 'changPasswordStore'])->name('change.password');
+        Route::get('change-password', [AdminController::class, 'changePassword'])->name('admin.change-password.form');
+        Route::post('change-password/store', [AdminController::class, 'changePasswordStore'])->name('admin.change-password.store');
     });
 
 
 // User section start
-    Route::group(['prefix' => '/user', 'middleware' => ['user']], function () {
+    Route::group(['prefix' => '/user', 'middleware' => ['auth','user']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('user');
+        
+        
+        
         // Profile
         Route::get('/profile', [HomeController::class, 'profile'])->name('user-profile');
         Route::post('/profile/{id}', [HomeController::class, 'profileUpdate'])->name('user-profile-update');
@@ -178,19 +181,21 @@
         Route::delete('/user-review/delete/{id}', [HomeController::class, 'productReviewDelete'])->name('user.productreview.delete');
         Route::get('/user-review/edit/{id}', [HomeController::class, 'productReviewEdit'])->name('user.productreview.edit');
         Route::patch('/user-review/update/{id}', [HomeController::class, 'productReviewUpdate'])->name('user.productreview.update');
-
+        
         // Post comment
         Route::get('user-post/comment', [HomeController::class, 'userComment'])->name('user.post-comment.index');
         Route::delete('user-post/comment/delete/{id}', [HomeController::class, 'userCommentDelete'])->name('user.post-comment.delete');
         Route::get('user-post/comment/edit/{id}', [HomeController::class, 'userCommentEdit'])->name('user.post-comment.edit');
         Route::patch('user-post/comment/udpate/{id}', [HomeController::class, 'userCommentUpdate'])->name('user.post-comment.update');
-
+        
         // Password Change
-        Route::get('change-password', [HomeController::class, 'changePassword'])->name('user.change.password.form');
-        Route::post('change-password', [HomeController::class, 'changPasswordStore'])->name('change.password');
-
+        Route::get('change-password', [HomeController::class, 'changePassword'])->name('user.change-password.form');
+        Route::post('change-password/store', [HomeController::class, 'changePasswordStore'])->name('user.change-password.store');
+        
     });
 
+    
+    
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         Lfm::routes();
     });

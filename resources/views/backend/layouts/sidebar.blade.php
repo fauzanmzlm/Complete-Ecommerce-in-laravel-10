@@ -51,7 +51,7 @@
     <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading">
-            Shop
+            Main Menu
         </div>
 
     <!-- Categories -->
@@ -98,26 +98,11 @@
         </div>
     </li>
 
-    {{-- Shipping --}}
-    {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#shippingCollapse" aria-expanded="true" aria-controls="shippingCollapse">
-          <i class="fas fa-truck"></i>
-          <span>Shipping</span>
-        </a>
-        <div id="shippingCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Shipping Options:</h6>
-            <a class="collapse-item" href="{{route('shipping.index')}}">Shipping</a>
-            <a class="collapse-item" href="{{route('shipping.create')}}">Add Shipping</a>
-          </div>
-        </div>
-    </li> --}}
-
-    <!--Orders -->
+    <!--Bookings -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('order.index')}}">
-            <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Orders</span>
+            <i class="fas fa-clipboard-list"></i>
+            <span>Bookings</span>
         </a>
     </li>
 
@@ -130,15 +115,15 @@
     
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    {{-- <hr class="sidebar-divider"> --}}
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    {{-- <div class="sidebar-heading">
       Posts
-    </div>
+    </div> --}}
 
     <!-- Posts -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCollapse" aria-expanded="true" aria-controls="postCollapse">
         <i class="fas fa-fw fa-folder"></i>
         <span>Posts</span>
@@ -150,10 +135,10 @@
           <a class="collapse-item" href="{{route('post.create')}}">Add Post</a>
         </div>
       </div>
-    </li>
+    </li> --}}
 
      <!-- Category -->
-     <li class="nav-item">
+     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCategoryCollapse" aria-expanded="true" aria-controls="postCategoryCollapse">
           <i class="fas fa-sitemap fa-folder"></i>
           <span>Category</span>
@@ -165,10 +150,10 @@
             <a class="collapse-item" href="{{route('post-category.create')}}">Add Category</a>
           </div>
         </div>
-      </li>
+      </li> --}}
 
       <!-- Tags -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tagCollapse" aria-expanded="true" aria-controls="tagCollapse">
             <i class="fas fa-tags fa-folder"></i>
             <span>Tags</span>
@@ -180,15 +165,15 @@
             <a class="collapse-item" href="{{route('post-tag.create')}}">Add Tag</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
       <!-- Comments -->
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('comment.index')}}">
             <i class="fas fa-comments fa-chart-area"></i>
             <span>Comments</span>
         </a>
-      </li>
+      </li> --}}
 
 
     <!-- Divider -->

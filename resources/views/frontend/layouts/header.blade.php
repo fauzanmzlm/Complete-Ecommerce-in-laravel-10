@@ -32,7 +32,7 @@
                                 <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
 
                             @else
-                                <li><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
+                                <li><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login</a></li>
                             @endauth
                         </ul>
                     </div>
@@ -185,7 +185,7 @@
                                             <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">About Us</a></li>
                                             <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">Equipments</a><span class="new">New</span></li>												
                                                 {{Helper::getHeaderCategory()}}
-                                            <li class="{{Request::path()=='blog' ? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>									
+                                            {{-- <li class="{{Request::path()=='blog' ? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>									 --}}
                                             <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact')}}">Contact Us</a></li>
                                         </ul>
                                     </div>

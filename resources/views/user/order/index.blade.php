@@ -9,7 +9,7 @@
          </div>
      </div>
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Order Lists</h6>
+      <h6 class="m-0 font-weight-bold text-primary float-left">Booking Lists</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -22,8 +22,6 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
-              <th>Total Amount</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -35,8 +33,6 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
-              <th>Total Amount</th>
               <th>Status</th>
               <th>Action</th>
               </tr>
@@ -46,21 +42,19 @@
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{$order->order_number}}</td>
-                    <td>{{$order->first_name}} {{$order->last_name}}</td>
-                    <td>{{$order->email}}</td>
+                    <td>{{ $order->user->name }}</td>
+                    <td>{{ $order->user->email }}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{$order->shipping->price}}</td>
-                    <td>${{number_format($order->total_amount,2)}}</td>
                     <td>
-                        @if($order->status=='new')
-                          <span class="badge badge-primary">{{$order->status}}</span>
-                        @elseif($order->status=='process')
-                          <span class="badge badge-warning">{{$order->status}}</span>
-                        @elseif($order->status=='delivered')
-                          <span class="badge badge-success">{{$order->status}}</span>
-                        @else
-                          <span class="badge badge-danger">{{$order->status}}</span>
-                        @endif
+                      @if($order->status=='pending')
+                        <span class="badge badge-warning">{{$order->status}}</span>
+                      @elseif($order->status=='confirmed')
+                        <span class="badge badge-primary">{{$order->status}}</span>
+                      @elseif($order->status=='completed')
+                        <span class="badge badge-success">{{$order->status}}</span>
+                      @else
+                        <span class="badge badge-danger">{{$order->status}}</span>
+                      @endif
                     </td>
                     <td>
                         <a href="{{route('user.order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
@@ -76,7 +70,7 @@
         </table>
         <span style="float:right">{{$orders->links()}}</span>
         @else
-          <h6 class="text-center">No orders found!!! Please order some equipments</h6>
+          <h6 class="text-center">No booking found!!! Please book some equipments</h6>
         @endif
       </div>
     </div>

@@ -8,10 +8,12 @@ use App\Models\Order;
 use App\Models\Shipping;
 use App\User;
 use PDF;
-use Notification;
+// use Notification;
+use Illuminate\Support\Facades\Notification;
 use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -44,10 +46,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'string|required',
-            'email'=>'string|required'
-        ]);
+        // Get the current date
+        $from_date = Carbon::now();
+
+        // Add 7 days to the current date
+        $to_date = $from_date->copy()->addDays(7);
+
+        // Convert dates to desired format (optional)
+        $from_date_formatted = $from_date->format('Y-m-d');
+        $to_date_formatted = $to_date->format('Y-m-d');
 
         if(empty(Cart::where('user_id',auth()->user()->id)->where('order_id',null)->first())){
             session()->flash('error','Cart is Empty !');
@@ -61,7 +68,10 @@ class OrderController extends Controller
 
         $order_data['quantity']=Helper::cartCount();
 
-        $order_data['status']="new";
+        $order_data['from_date'] = $from_date_formatted;
+        $order_data['to_date'] = $to_date_formatted;
+
+        $order_data['status']="pending";
         
         $order->fill($order_data);
         $status=$order->save();
@@ -119,7 +129,7 @@ class OrderController extends Controller
     {
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,process,delivered,cancel'
+            'status'=>'required|in:pending,confirmed,completed,cancelled'
         ]);
         $data=$request->all();
         // return $request->status;
@@ -133,10 +143,10 @@ class OrderController extends Controller
         }
         $status=$order->fill($data)->save();
         if($status){
-            session()->flash('success','Successfully updated order');
+            session()->flash('success','Successfully updated booking');
         }
         else{
-            session()->flash('error','Error while updating order');
+            session()->flash('error','Error while updating booking');
         }
         return redirect()->route('order.index');
     }
@@ -153,15 +163,15 @@ class OrderController extends Controller
         if($order){
             $status=$order->delete();
             if($status){
-                session()->flash('success','Order Successfully deleted');
+                session()->flash('success','Booking Successfully deleted');
             }
             else{
-                session()->flash('error','Order can not deleted');
+                session()->flash('error','Booking can not deleted');
             }
             return redirect()->route('order.index');
         }
         else{
-            session()->flash('error','Order can not found');
+            session()->flash('error','Booking can not found');
             return redirect()->back();
         }
     }
@@ -174,29 +184,29 @@ class OrderController extends Controller
         // return $request->all();
         $order=Order::where('user_id',auth()->user()->id)->where('order_number',$request->order_number)->first();
         if($order){
-            if($order->status=="new"){
-            session()->flash('success','Your order has been placed. please wait.');
-            return redirect()->route('home');
+            if($order->status=="pending"){
+            session()->flash('success','Your reservation request has been submitted and is currently pending confirmation. We will notify you once the reservation is approved.');
+            return redirect()->route('order.track');
 
             }
-            elseif($order->status=="process"){
-                session()->flash('success','Your order is under processing please wait.');
-                return redirect()->route('home');
+            elseif($order->status=="confirmed"){
+                session()->flash('success','Congratulations! Your reservation has been approved and confirmed. The equipment is now reserved for you. Please pick it up on time.');
+                return redirect()->route('order.track');
     
             }
-            elseif($order->status=="delivered"){
-                session()->flash('success','Your order is successfully delivered.');
-                return redirect()->route('home');
+            elseif($order->status=="completed"){
+                session()->flash('success','Your reservation period has ended, and the equipment has been successfully returned. Thank you for using our service. If you have any feedback, feel free to share it with us.');
+                return redirect()->route('order.track');
     
             }
             else{
-                session()->flash('error','Your order canceled. please try again');
-                return redirect()->route('home');
+                session()->flash('error','Unfortunately, your reservation has been canceled. If you have any questions or concerns, please contact our support team for assistance.');
+                return redirect()->route('order.track');
     
             }
         }
         else{
-            session()->flash('error','Invalid order numer please try again');
+            session()->flash('error','Invalid booking number please try again');
             return back();
         }
     }

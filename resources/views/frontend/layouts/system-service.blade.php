@@ -33,8 +33,8 @@
                 <!-- Start Single Service -->
                 <div class="single-service">
                     <i class="ti-tag"></i>
-                    <h4>Best Availability</h4>
-                    <p>Explore and book sports equipment with guaranteed competitive prices.</p>
+                    <h4>BOOK SMART, PLAY SMARTER</h4>
+                    <p>Effortless equipment reservations in our streamlined system, perfect for efficient sports facility management.</p>
                 </div>
                 <!-- End Single Service -->
             </div>

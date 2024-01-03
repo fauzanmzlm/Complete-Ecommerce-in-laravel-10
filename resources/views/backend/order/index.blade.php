@@ -21,9 +21,9 @@
               <th>Booking No.</th>
               <th>Name</th>
               <th>Email</th>
+              <th>From Date</th>
+              <th>To Date</th>
               <th>Quantity</th>
-              {{-- <th>Charge</th>
-              <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -34,45 +34,50 @@
               <th>Order No.</th>
               <th>Name</th>
               <th>Email</th>
+              <th>From Date</th>
+              <th>To Date</th>
               <th>Quantity</th>
-              {{-- <th>Charge</th>
-              <th>Total Amount</th> --}}
               <th>Status</th>
               <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
             @foreach($orders as $order)  
-            {{-- @php
-                $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp  --}}
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{$order->order_number}}</td>
-                    <td>{{$order->first_name}} {{$order->last_name}}</td>
-                    <td>{{$order->email}}</td>
+                    <td>{{$order->user->name}}</td>
+                    <td>{{$order->user->email}}</td>
+                    <td>02/01/2023</td>
+                    <td>04/01/2023</td>
                     <td>{{$order->quantity}}</td>
-                    {{-- <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-                    <td>${{number_format($order->total_amount,2)}}</td> --}}
                     <td>
-                        @if($order->status=='new')
-                          <span class="badge badge-primary">{{$order->status}}</span>
-                        @elseif($order->status=='process')
+                        @if($order->status=='pending')
                           <span class="badge badge-warning">{{$order->status}}</span>
-                        @elseif($order->status=='delivered')
+                        @elseif($order->status=='confirmed')
+                          <span class="badge badge-primary">{{$order->status}}</span>
+                        @elseif($order->status=='completed')
                           <span class="badge badge-success">{{$order->status}}</span>
                         @else
                           <span class="badge badge-danger">{{$order->status}}</span>
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
-                        <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                        <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                          @csrf 
-                          @method('delete')
-                              <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                      
+                    <a href="{{route('order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye" style="margin-left: -3px;"></i></a>
+                    {{-- <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a> --}}
+                    <form method="POST" action="{{route('order.destroy',[$order->id])}}">
+                      @csrf 
+                      @method('delete')
+                      <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                    <hr>
+                    <select name="status" id="status" class="form-control" data-id="{{ $order->id }}">
+                      <option value="pending" {{ ($order->status=='confirmed' || $order->status=="completed" || $order->status=="cancelled") ? 'disabled' : '' }}  {{ ($order->status=='pending') ? 'selected' : '' }}>Pending</option>
+                      <option value="confirmed" {{ ($order->status=='completed' || $order->status=="cancelled") ? 'disabled' : '' }}  {{ ($order->status=='confirmed') ? 'selected' : '' }}>Confirmed</option>
+                      <option value="completed" {{ ($order->status=="cancelled") ? 'disabled' : '' }}  {{ ($order->status=='completed') ? 'selected' : '' }}>Completed</option>
+                      <option value="cancelled" {{ ($order->status=='completed') ? 'disabled' : '' }}  {{ ($order->status=='cancelled') ? 'selected' : '' }}>Cancelled</option>
+                  </select>
                     </td>
                 </tr>  
             @endforeach
@@ -150,6 +155,30 @@
                     }
                 });
           })
+
+
+          $('#status').on('change', function() {
+        var selectedStatus = $(this).val();
+        var id = $(this).attr("data-id");
+        // Make an AJAX request to update the status
+        $.ajax({
+            url: , // Replace with the actual endpoint to update the status
+            type: 'POST', // Adjust the method accordingly
+            data: {
+                order_id: id,
+                status: selectedStatus
+            },
+            success: function(response) {
+                // Handle success if needed
+                console.log('Status updated successfully');
+            },
+            error: function(error) {
+                // Handle error if needed
+                console.error('Error updating status:', error);
+            }
+        });
+    });
+
       })
   </script>
 @endpush

@@ -58,8 +58,6 @@ class ProductController extends Controller
             'is_featured'=>'sometimes|in:1',
             'status'=>'required|in:active,inactive',
             'condition'=>'required|in:default,new,hot',
-            'price'=>'required|numeric',
-            'discount'=>'nullable|numeric'
         ]);
 
         $data=$request->all();
@@ -77,11 +75,9 @@ class ProductController extends Controller
         else{
             $data['size']='';
         }
-        // return $size;
-        // return $data;
         $status=Product::create($data);
         if($status){
-            session()->flash('success','Product Successfully added');
+            session()->flash('success','Equipment Successfully added');
         }
         else{
             session()->flash('error','Please try again!!');
@@ -142,8 +138,6 @@ class ProductController extends Controller
             'brand_id'=>'nullable|exists:brands,id',
             'status'=>'required|in:active,inactive',
             'condition'=>'required|in:default,new,hot',
-            'price'=>'required|numeric',
-            'discount'=>'nullable|numeric'
         ]);
 
         $data=$request->all();

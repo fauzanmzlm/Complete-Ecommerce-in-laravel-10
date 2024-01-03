@@ -33,7 +33,7 @@
 							<h3>Welcome To <span>USEBS</span></h3>
 							<p>@foreach($settings as $data) {{  $data->description  }} @endforeach</p>
 							<div class="button">
-								<a href="{{route('blog')}}" class="btn">Our Blog</a>
+								{{-- <a href="{{route('blog')}}" class="btn">Our Blog</a> --}}
 								<a href="{{route('contact')}}" class="btn primary">Contact Us</a>
 							</div>
 						</div>

@@ -35,9 +35,7 @@ class WishlistController extends Controller
             $wishlist = new Wishlist;
             $wishlist->user_id = auth()->user()->id;
             $wishlist->product_id = $product->id;
-            $wishlist->price = ($product->price-($product->price*$product->discount)/100);
             $wishlist->quantity = 1;
-            $wishlist->amount=$wishlist->price*$wishlist->quantity;
             if ($wishlist->product->stock < $wishlist->quantity || $wishlist->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
             $wishlist->save();
         }

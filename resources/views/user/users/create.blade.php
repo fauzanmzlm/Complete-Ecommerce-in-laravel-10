@@ -16,6 +16,15 @@
         </div>
 
         <div class="form-group">
+          <label for="inputTitle" class="col-form-label">Personal ID (Optional)</label>
+        <input id="inputPersonalId" type="text" name="personal_id" placeholder="Enter Personal ID"  value="{{old('personal_id')}}" class="form-control">
+        <small>Example: Student ID @ Staff ID</small>
+        @error('personal_id')
+        <span class="text-danger">{{$message}}</span>
+        @enderror
+        </div>
+
+        <div class="form-group">
             <label for="inputEmail" class="col-form-label">Email</label>
           <input id="inputEmail" type="email" name="email" placeholder="Enter email"  value="{{old('email')}}" class="form-control">
           @error('email')

@@ -27,6 +27,12 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
+								<th valign="middle">
+									<div class="form-check ml-4">
+                                        <input type="checkbox" class="form-check-input" id="tnc" name="tnc" required="required">
+                                        <label class="form-check-label" for="termsCheckbox"></label>
+                                    </div>
+								</th>
 								<th>EQUIPMENT</th>
 								<th>NAME</th>
 								<th class="text-center">QUANTITY</th>
@@ -39,16 +45,21 @@
 								@if(Helper::getAllProductFromCart())
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
+											<td>
+												<div class="form-check ml-4">
+													<input type="checkbox" class="form-check-input" id="tnc" name="tnc" required="required">
+													<label class="form-check-label" for="termsCheckbox"></label>
+												</div>
+											</td>
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+											<td class="image text-center" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
 											<td class="product-des" data-title="Description">
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
-											{{-- <td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td> --}}
-											<td class="qty" data-title="Qty"><!-- Input Order -->
+											<td class="qty text-center" data-title="Qty"><!-- Input Order -->
 												<div class="input-group">
 													<div class="button minus">
 														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$key}}]">
@@ -65,11 +76,11 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
-
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
 									@endforeach
 									<track>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','USEBS || Login Page')
+@section('title','USEBS || Forget Password Page')
 
 @section('main-content')
     <!-- Breadcrumbs -->
@@ -11,7 +11,7 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0);">Login</a></li>
+                            <li class="active"><a href="javascript:void(0);">Forget Password</a></li>
                         </ul>
                     </div>
                 </div>
@@ -26,10 +26,10 @@
             <div class="row"> 
                 <div class="col-lg-6 offset-lg-3 col-12">
                     <div class="login-form">
-                        <h2>Login</h2>
-                        <p>Please register in order to checkout more quickly</p>
+                        <h2>Forget Password</h2>
+                        <p>Please fill all required input</p>
                         <!-- Form -->
-                        <form class="form" method="post" action="{{route('login.submit')}}">
+                        <form class="form" method="post" action="{{ route('password.email') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-12">
@@ -42,26 +42,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Password<span>*</span></label>
-                                        <input type="password" name="password" placeholder="" required="required" value="{{old('password')}}">
-                                        @error('password')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button class="btn" type="submit">Login</button>
+                                        <button class="btn" type="submit">Send Password Reset Link</button>
                                     </div>
-                                    <div class="checkbox">
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>
-                                    </div>
-                                    @if (Route::has('password.request'))
-                                        <a class="lost-pass" href="{{ route('password.reset') }}">
-                                            Lost your password?
-                                        </a>
-                                    @endif
                                 </div>
                             </div>
                         </form>

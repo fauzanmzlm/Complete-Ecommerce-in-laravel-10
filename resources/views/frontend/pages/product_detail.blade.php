@@ -81,10 +81,6 @@
 													</ul>
 													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
                                                 </div>
-                                                {{-- @php 
-                                                    $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
-                                                @endphp
-												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p> --}}
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
 											<!--/ End Description -->
@@ -117,7 +113,7 @@
 											<!--/ End Size -->
 											<!-- Date Book -->
 											<br>
-											<div class="size mt-4">
+											{{-- <div class="size mt-4">
 												<h4 style="margin-bottom: 10px;">From Date</h4>
 												<input type="date" id="birthday" name="birthday" class="form-control">
 											</div>	
@@ -125,7 +121,7 @@
 											<div class="size mt-4">
 												<h4 style="margin-bottom: 10px;">To Date</h4>
 												<input type="date" id="birthday" name="birthday" class="form-control">
-											</div>	
+											</div>	 --}}
 											<!-- End Date Book -->
 											<!-- Product Buy -->
 											<div class="product-buy">
@@ -339,14 +335,13 @@
 											@endphp
                                             <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                             <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            {{-- <span class="price-dec">{{$data->discount}} % Off</span> --}}
                                                                     <span class="out-of-stock">Hot</span>
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
                                                 <a data-toggle="modal" data-target="#modelExample" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
                                                 <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                                {{-- <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a> --}}
                                             </div>
                                             <div class="product-action-2">
                                                 <a title="Add to cart" href="#">Add to cart</a>
@@ -355,14 +350,6 @@
                                     </div>
                                     <div class="product-content">
                                         <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
-                                        {{-- <div class="product-price">
-                                            @php 
-                                                $after_discount=($data->price-(($data->discount*$data->price)/100));
-                                            @endphp
-                                            <span class="old">${{number_format($data->price,2)}}</span>
-                                            <span>${{number_format($after_discount,2)}}</span>
-                                        </div> --}}
-                                      
                                     </div>
                                 </div>
                                 <!-- End Single Product -->

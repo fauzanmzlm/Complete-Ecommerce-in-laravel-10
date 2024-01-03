@@ -113,11 +113,6 @@
                                             </div>
                                             <div class="content">
                                                 <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
-                                                {{-- @php
-                                                    $org=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p> --}}
-
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
@@ -174,9 +169,6 @@
                                                     @endphp
                                                     <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                     <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    @if($product->discount)
-                                                                <span class="price-dec">{{$product->discount}} % Off</span>
-                                                    @endif
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
@@ -190,11 +182,6 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                                {{-- @php
-                                                    $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <span>${{number_format($after_discount,2)}}</span>
-                                                <del style="padding-left:4%;">${{number_format($product->price,2)}}</del> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -283,10 +270,6 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            {{-- @php
-                                                $after_discount=($product->price-($product->price*$product->discount)/100);
-                                            @endphp
-                                            <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3> --}}
                                             <div class="quickview-peragraph">
                                                 <p>{!! html_entity_decode($product->summary) !!}</p>
                                             </div>

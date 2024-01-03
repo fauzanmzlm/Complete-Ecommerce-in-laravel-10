@@ -116,17 +116,7 @@
                                                 @endphp
                                                 <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                 <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                {{-- @if($product->stock<=0)
-                                                    <span class="out-of-stock">Sale out</span>
-                                                @elseif($product->condition=='new')
-                                                    <span class="new">New</span
-                                                @elseif($product->condition=='hot')
-                                                    <span class="hot">Hot</span>
-                                                @else
-                                                    <span class="price-dec">{{$product->discount}}% Off</span>
-                                                @endif --}}
                                                 <span class="hot"><i class="fa fa-check"></i></span>
-                                                {{-- <span class="out-of-stock"><i class="fa fa-times"></i></span> --}}
                                             </a>
                                             <div class="button-head">
                                                 <div class="product-action">
@@ -140,13 +130,6 @@
                                         </div>
                                         <div class="product-content">
                                             <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                            {{-- <div class="product-price">
-                                                @php
-                                                    $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <span>${{number_format($after_discount,2)}}</span>
-                                                <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +165,7 @@
                             <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                             <div class="content">
                                 <p>{{$data->cat_info['title']}}</p>
-                                <h3>{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>
+                                <h3>{{$data->title}}</h3>
                                 <a href="{{route('product-detail',$data->slug)}}">Book Now</a>
                             </div>
                         </div>
@@ -234,13 +217,6 @@
                             </div>
                             <div class="product-content">
                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                {{-- <div class="product-price">
-                                    <span class="old">${{number_format($product->price,2)}}</span>
-                                    @php
-                                    $after_discount=($product->price-($product->price*$product->discount)/100)
-                                    @endphp
-                                    <span>${{number_format($after_discount,2)}}</span>
-                                </div> --}}
                             </div>
                         </div>
                         <!-- End Single Product -->
@@ -287,7 +263,6 @@
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">
                                     <div class="content">
                                         <h4 class="title"><a href="#">{{$product->title}}</a></h4>
-                                        <p class="price with-discount">${{number_format($product->discount,2)}}</p>
                                     </div>
                                 </div>
                                 </div>
@@ -303,7 +278,7 @@
 </section>
 <!-- End Shop Home List  -->
 
-<!-- Start Shop Blog  -->
+{{-- <!-- Start Shop Blog  -->
 <section class="shop-blog section">
     <div class="container">
         <div class="row">
@@ -334,7 +309,7 @@
         </div>
     </div>
 </section>
-<!-- End Shop Blog  -->
+<!-- End Shop Blog  --> --}}
 
 <!-- Start Shop Services Area -->
 <section class="shop-services section home">
@@ -444,10 +419,6 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        @php
-                                            $after_discount=($product->price-($product->price*$product->discount)/100);
-                                        @endphp
-                                        <h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary) !!}</p>
                                         </div>

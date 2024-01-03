@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\ProductReview;
 use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -213,16 +213,33 @@ class HomeController extends Controller
     public function changePassword(){
         return view('user.layouts.userPasswordChange');
     }
-    public function changPasswordStore(Request $request)
+    public function changePasswordStore(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            // 'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+
+        // User::find(auth()->user()->id)->update([
+        //     'password'=> Hash::make($request->new_password)
+        // ]);
+
+        // return redirect()->route('user')->with('success','Password successfully changed');
+    }
+    public function dasdsa(Request $request)
     {
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
+        User::find(auth()->user()->id)->update([
+            'password'=> Hash::make($request->new_password)
+        ]);
+
         return redirect()->route('user')->with('success','Password successfully changed');
     }
 

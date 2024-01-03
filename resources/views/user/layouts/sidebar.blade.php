@@ -23,13 +23,13 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Shop
+            Main Menu
         </div>
     <!--Orders -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.order.index')}}">
-            <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Orders</span>
+            <i class="fas fa-file"></i>
+            <span>Bookings</span>
         </a>
     </li>
 

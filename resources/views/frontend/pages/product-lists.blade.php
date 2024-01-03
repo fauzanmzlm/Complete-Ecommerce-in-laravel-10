@@ -66,13 +66,6 @@
 									<h3 class="title">Shop by Price</h3>
 									<div class="price-filter">
 										<div class="price-filter-inner">
-											{{-- <div id="slider-range" data-min="10" data-max="2000" data-currency="%"></div>
-												<div class="price_slider_amount">
-												<div class="label-input">
-													<span>Range:</span>
-													<input type="text" id="amount" name="price_range" value='@if(!empty($_GET['price'])) {{$_GET['price']}} @endif' placeholder="Add Your Price"/>
-												</div>
-											</div> --}}
 											@php
 												$max=DB::table('products')->max('price');
 												// dd($max);
@@ -116,10 +109,6 @@
                                             </div>
                                             <div class="content">
                                                 <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
-                                                @php
-                                                    $org=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>                                                
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
@@ -208,13 +197,6 @@
 												<div class="col-lg-8 col-md-6 col-12">
 													<div class="list-content">
 														<div class="product-content">
-															<div class="product-price">
-																@php
-																	$after_discount=($product->price-($product->price*$product->discount)/100);
-																@endphp
-																<span>${{number_format($after_discount,2)}}</span>
-																<del>${{number_format($product->price,2)}}</del>
-															</div>
 															<h3 class="title"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
 														{{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
 														</div>
@@ -302,10 +284,6 @@
 														@endif
 													</div>
 												</div>
-												@php
-													$after_discount=($product->price-($product->price*$product->discount)/100);
-												@endphp
-												<h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
 												<div class="quickview-peragraph">
 													<p>{!! html_entity_decode($product->summary) !!}</p>
 												</div>

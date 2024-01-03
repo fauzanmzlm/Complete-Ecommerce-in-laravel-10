@@ -16,8 +16,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
-            <th>Charge</th>
-            <th>Total Amount</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -29,8 +27,6 @@
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>${{$order->shipping->price}}</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -60,7 +56,7 @@
         <div class="row">
           <div class="col-lg-6 col-lx-4">
             <div class="order-info">
-              <h4 class="text-center pb-4">ORDER INFORMATION</h4>
+              <h4 class="text-center pb-4">BOOKING INFORMATION</h4>
               <table class="table">
                     <tr class="">
                         <td>Order Number</td>
@@ -78,61 +74,10 @@
                         <td>Order Status</td>
                         <td> : {{$order->status}}</td>
                     </tr>
-                    <tr>
-                        <td>Shipping Charge</td>
-                        <td> : $ {{$order->shipping->price}}</td>
-                    </tr>
-                    <tr>
-                      <td>Coupon</td>
-                      <td> : $ {{number_format($order->coupon,2)}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Amount</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
-                    </tr>
-                    <tr>
-                        <td>Payment Method</td>
-                        <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
-                    </tr>
-                    <tr>
-                        <td>Payment Status</td>
-                        <td> : {{$order->payment_status}}</td>
-                    </tr>
               </table>
             </div>
           </div>
 
-          <div class="col-lg-6 col-lx-4">
-            <div class="shipping-info">
-              <h4 class="text-center pb-4">SHIPPING INFORMATION</h4>
-              <table class="table">
-                    <tr class="">
-                        <td>Full Name</td>
-                        <td> : {{$order->first_name}} {{$order->last_name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td> : {{$order->email}}</td>
-                    </tr>
-                    <tr>
-                        <td>Phone No.</td>
-                        <td> : {{$order->phone}}</td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td> : {{$order->address1}}, {{$order->address2}}</td>
-                    </tr>
-                    <tr>
-                        <td>Country</td>
-                        <td> : {{$order->country}}</td>
-                    </tr>
-                    <tr>
-                        <td>Post Code</td>
-                        <td> : {{$order->post_code}}</td>
-                    </tr>
-              </table>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Order @if($order)- {{$order->order_number}} @endif</title>
+  <title>Booking @if($order)- {{$order->order_number}} @endif</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -114,7 +114,6 @@
         <tr>
           <th scope="col" class="col-6">Product</th>
           <th scope="col" class="col-3">Quantity</th>
-          <th scope="col" class="col-3">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -129,41 +128,9 @@
               @endforeach
             </span></td>
           <td>x{{$cart->quantity}}</td>
-          <td><span>${{number_format($cart->price,2)}}</span></td>
         </tr>
       @endforeach
       </tbody>
-      <tfoot>
-        <tr>
-          <th scope="col" class="empty"></th>
-          <th scope="col" class="text-right">Subtotal:</th>
-          <th scope="col"> <span>${{number_format($order->sub_total,2)}}</span></th>
-        </tr>
-      {{-- @if(!empty($order->coupon))
-        <tr>
-          <th scope="col" class="empty"></th>
-          <th scope="col" class="text-right">Discount:</th>
-          <th scope="col"><span>-{{$order->coupon->discount(Helper::orderPrice($order->id, $order->user->id))}}{{Helper::base_currency()}}</span></th>
-        </tr>
-      @endif --}}
-        <tr>
-          <th scope="col" class="empty"></th>
-          @php
-            $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-          @endphp
-          <th scope="col" class="text-right ">Shipping:</th>
-          <th><span>${{number_format($shipping_charge[0],2)}}</span></th>
-        </tr>
-        <tr>
-          <th scope="col" class="empty"></th>
-          <th scope="col" class="text-right">Total:</th>
-          <th>
-            <span>
-                ${{number_format($order->total_amount,2)}}
-            </span>
-          </th>
-        </tr>
-      </tfoot>
     </table>
   </section>
   <div class="thanks mt-3">

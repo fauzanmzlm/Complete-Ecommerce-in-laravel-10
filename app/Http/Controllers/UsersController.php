@@ -38,19 +38,19 @@ class UsersController extends Controller
     {
         $this->validate($request,
         [
-            'name'=>'string|required|max:30',
-            'email'=>'string|required|unique:users',
-            'password'=>'string|required',
+            'name'=>'required|string|max:30',
+            'personal_id'=>'required|string|max:30|unique:users,personal_id',
+            'email'=>'required|string|unique:users',
+            'password'=>'required|string|min:8',
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
             'photo'=>'nullable|string',
         ]);
-        // dd($request->all());
+
         $data=$request->all();
         $data['password']=Hash::make($request->password);
-        // dd($data);
         $status=User::create($data);
-        // dd($status);
+        
         if($status){
             session()->flash('success','Successfully added user');
         }
@@ -96,8 +96,9 @@ class UsersController extends Controller
         $user=User::findOrFail($id);
         $this->validate($request,
         [
-            'name'=>'string|required|max:30',
-            'email'=>'string|required',
+            'name'=>'required|string|max:30',
+            'personal_id'=>'required|string|max:30|',
+            'email'=>'required|string',
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
             'photo'=>'nullable|string',

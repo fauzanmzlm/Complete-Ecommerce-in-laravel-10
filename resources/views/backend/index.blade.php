@@ -51,7 +51,7 @@
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Order</div>
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Booking</div>
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countActiveOrder()}}</div>
@@ -73,11 +73,11 @@
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Post</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{\App\Models\Post::countActivePost()}}</div>
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Users</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{\App\User::count()}}</div>
               </div>
               <div class="col-auto">
-                <i class="fas fa-folder fa-2x text-gray-300"></i>
+                <i class="fas fa-users fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
@@ -91,14 +91,19 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Equipment Usage Overview</h6>
             
           </div>
           <!-- Card Body -->
           <div class="card-body">
-            <div class="chart-area">
-              <canvas id="myAreaChart"></canvas>
-            </div>
+            <figure class="highcharts-figure">
+              <div id="container"></div>
+              <p class="highcharts-description">
+                  Chart showing equipment usage. Clicking on individual columns
+                  brings up more detailed data. This chart makes use of the drilldown
+                  feature in Highcharts to easily switch between datasets.
+              </p>
+          </figure>
           </div>
         </div>
       </div>
@@ -144,135 +149,169 @@
 </script>
   {{-- line chart --}}
   <script type="text/javascript">
-    const url = "{{route('product.order.income')}}";
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
+   
+    // Data retrieved from https://gs.statcounter.com/browser-market-share#monthly-202201-202201-bar
 
-    function number_format(number, decimals, dec_point, thousands_sep) {
-      // *     example: number_format(1234.56, 2, ',', ' ');
-      // *     return: '1 234,56'
-      number = (number + '').replace(',', '').replace(' ', '');
-      var n = !isFinite(+number) ? 0 : +number,
-        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-        s = '',
-        toFixedFix = function(n, prec) {
-          var k = Math.pow(10, prec);
-          return '' + Math.round(n * k) / k;
-        };
-      // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-      s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-      if (s[0].length > 3) {
-        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-      }
-      if ((s[1] || '').length < prec) {
-        s[1] = s[1] || '';
-        s[1] += new Array(prec - s[1].length + 1).join('0');
-      }
-      return s.join(dec);
+// Create the chart
+Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        align: 'left',
+        text: 'Equipment Usage. January, 2024'
+    },
+    subtitle: {
+        align: 'left',
+        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">usebs.com</a>'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Total usage'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:1f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:1f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: 'Category',
+            colorByPoint: true,
+            data: [
+                {
+                    name: 'Outdoor Sports',
+                    y: 63,
+                    drilldown: 'Outdoor Sports'
+                },
+                {
+                    name: 'Indoor Sports',
+                    y: 19,
+                    drilldown: 'Indoor Sports'
+                },
+                {
+                    name: 'Fitness and Gym',
+                    y: 4,
+                    drilldown: 'Fitness and Gym'
+                },
+                {
+                    name: 'Cycling',
+                    y: 10,
+                    drilldown: 'Cycling'
+                }
+            ]
+        }
+    ],
+    drilldown: {
+        breadcrumbs: {
+            position: {
+                align: 'right'
+            }
+        },
+        series: [
+            {
+                name: 'Outdoor Sports',
+                id: 'Outdoor Sports',
+                data: [
+                    [
+                        'Soccer balls',
+                        2
+                    ],
+                    [
+                        'Footballs',
+                        3
+                    ],
+                    [
+                        'Frisbees',
+                        1
+                    ],
+                    [
+                        'Volleyballs',
+                        6
+                    ]
+                ]
+            },
+            {
+                name: 'Indoor Sports',
+                id: 'Indoor Sports',
+                data: [
+                    [
+                        'Basketball',
+                        3
+                    ],
+                    [
+                        'Badminton rackets and shuttlecocks',
+                        4
+                    ],
+                    [
+                        'Table tennis paddles and balls',
+                        1
+                    ]
+                ]
+            },
+            {
+                name: 'Fitness and Gym',
+                id: 'Fitness and Gym',
+                data: [
+                    [
+                        'Dumbbells',
+                        11
+                    ],
+                    [
+                        'Yoga mats',
+                        7
+                    ],
+                    [
+                        'Resistance bands',
+                        10
+                    ]
+                ]
+            },
+            {
+                name: 'Cycling',
+                id: 'Cycling',
+                data: [
+                    [
+                        'Bicycles',
+                        20
+                    ],
+                    [
+                        'Helmets',
+                        20
+                    ],
+                    [
+                        'Bike locks',
+                        20
+                    ]
+                ]
+            }
+        ]
     }
+});
 
-      // Area Chart Example
-      var ctx = document.getElementById("myAreaChart");
-
-        axios.get(url)
-              .then(function (response) {
-                const data_keys = Object.keys(response.data);
-                const data_values = Object.values(response.data);
-                var myLineChart = new Chart(ctx, {
-                  type: 'line',
-                  data: {
-                    labels: data_keys, // ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                      label: "Earnings",
-                      lineTension: 0.3,
-                      backgroundColor: "rgba(78, 115, 223, 0.05)",
-                      borderColor: "rgba(78, 115, 223, 1)",
-                      pointRadius: 3,
-                      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                      pointBorderColor: "rgba(78, 115, 223, 1)",
-                      pointHoverRadius: 3,
-                      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                      pointHitRadius: 10,
-                      pointBorderWidth: 2,
-                      data:data_values,// [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-                    }],
-                  },
-                  options: {
-                    maintainAspectRatio: false,
-                    layout: {
-                      padding: {
-                        left: 10,
-                        right: 25,
-                        top: 25,
-                        bottom: 0
-                      }
-                    },
-                    scales: {
-                      xAxes: [{
-                        time: {
-                          unit: 'date'
-                        },
-                        gridLines: {
-                          display: false,
-                          drawBorder: false
-                        },
-                        ticks: {
-                          maxTicksLimit: 7
-                        }
-                      }],
-                      yAxes: [{
-                        ticks: {
-                          maxTicksLimit: 5,
-                          padding: 10,
-                          // Include a dollar sign in the ticks
-                          callback: function(value, index, values) {
-                            return '$' + number_format(value);
-                          }
-                        },
-                        gridLines: {
-                          color: "rgb(234, 236, 244)",
-                          zeroLineColor: "rgb(234, 236, 244)",
-                          drawBorder: false,
-                          borderDash: [2],
-                          zeroLineBorderDash: [2]
-                        }
-                      }],
-                    },
-                    legend: {
-                      display: false
-                    },
-                    tooltips: {
-                      backgroundColor: "rgb(255,255,255)",
-                      bodyFontColor: "#858796",
-                      titleMarginBottom: 10,
-                      titleFontColor: '#6e707e',
-                      titleFontSize: 14,
-                      borderColor: '#dddfeb',
-                      borderWidth: 1,
-                      xPadding: 15,
-                      yPadding: 15,
-                      displayColors: false,
-                      intersect: false,
-                      mode: 'index',
-                      caretPadding: 10,
-                      callbacks: {
-                        label: function(tooltipItem, chart) {
-                          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                        }
-                      }
-                    }
-                  }
-                });
-              })
-              .catch(function (error) {
-              //   vm.answer = 'Error! Could not reach the API. ' + error
-              console.log(error)
-              });
 
   </script>
 @endpush

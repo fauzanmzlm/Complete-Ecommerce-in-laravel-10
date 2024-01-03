@@ -71,7 +71,7 @@
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Profile
           </a>
-          <a class="dropdown-item" href="{{route('change.password.form')}}">
+          <a class="dropdown-item" href="{{route('admin.change-password.form')}}">
             <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
             Change Password
           </a>

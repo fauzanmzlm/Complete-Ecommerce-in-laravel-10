@@ -10,11 +10,12 @@ use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Brand;
 use App\User;
-use Auth;
-use Session;
+// use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+// use Session;
 use Newsletter;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 class FrontendController extends Controller
@@ -28,7 +29,7 @@ class FrontendController extends Controller
     {
         $featured = Product::where('status', 'active')
             ->where('is_featured', 1)
-            ->orderBy('price', 'DESC')
+            // ->orderBy('price', 'DESC')
             ->limit(2)
             ->get();
         $posts = Post::where('status', 'active')
@@ -457,14 +458,10 @@ class FrontendController extends Controller
         $data = $request->all();
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'status' => 'active'])) {
             Session::put('user', $data['email']);
-            request()
-                ->session()
-                ->flash('success', 'Successfully login');
+            session()->flash('success', 'Successfully login');
             return redirect()->route('home');
         } else {
-            request()
-                ->session()
-                ->flash('error', 'Invalid email and password pleas try again!');
+            session()->flash('error', 'Invalid email and password pleas try again!');
             return redirect()->back();
         }
     }
@@ -473,9 +470,7 @@ class FrontendController extends Controller
     {
         Session::forget('user');
         Auth::logout();
-        request()
-            ->session()
-            ->flash('success', 'Logout successfully');
+        session()->flash('success', 'Logout successfully');
         return back();
     }
 
@@ -495,14 +490,10 @@ class FrontendController extends Controller
         $check = $this->create($data);
         Session::put('user', $data['email']);
         if ($check) {
-            request()
-                ->session()
-                ->flash('success', 'Successfully registered');
+            session()->flash('success', 'Successfully registered');
             return redirect()->route('home');
         } else {
-            request()
-                ->session()
-                ->flash('error', 'Please try again!');
+            session()->flash('error', 'Please try again!');
             return back();
         }
     }
@@ -520,27 +511,28 @@ class FrontendController extends Controller
     // Reset password
     public function showResetForm()
     {
-        return view('auth.passwords.old-reset');
+        return view('frontend.pages.forget-password');
+        // return view('auth.passwords.old-reset');
     }
 
-    public function subscribe(Request $request)
-    {
-        if (!Newsletter::isSubscribed($request->email)) {
-            Newsletter::subscribePending($request->email);
-            if (Newsletter::lastActionSucceeded()) {
-                request()
-                    ->session()
-                    ->flash('success', 'Subscribed! Please check your email');
-                return redirect()->route('home');
-            } else {
-                Newsletter::getLastError();
-                return back()->with('error', 'Something went wrong! please try again');
-            }
-        } else {
-            request()
-                ->session()
-                ->flash('error', 'Already Subscribed');
-            return back();
-        }
-    }
+    // public function subscribe(Request $request)
+    // {
+    //     if (!Newsletter::isSubscribed($request->email)) {
+    //         Newsletter::subscribePending($request->email);
+    //         if (Newsletter::lastActionSucceeded()) {
+    //             request()
+    //                 ->session()
+    //                 ->flash('success', 'Subscribed! Please check your email');
+    //             return redirect()->route('home');
+    //         } else {
+    //             Newsletter::getLastError();
+    //             return back()->with('error', 'Something went wrong! please try again');
+    //         }
+    //     } else {
+    //         request()
+    //             ->session()
+    //             ->flash('error', 'Already Subscribed');
+    //         return back();
+    //     }
+    // }
 }

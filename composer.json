@@ -30,10 +30,13 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
+
             "Touhidurabir\\Filterable\\": "packages/laravel-filterable/src/"
-        }
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

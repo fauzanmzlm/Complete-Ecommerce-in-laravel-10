@@ -6,16 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\User;
 use App\Rules\MatchOldPassword;
-use Hash;
+// use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function index(){
-        $data = User::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+        $data = User::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"), DB::raw("DAY(created_at) as day"))
         ->where('created_at', '>', Carbon::today()->subDay(6))
         ->groupBy('day_name','day')
         ->orderBy('day')
@@ -82,7 +83,7 @@ class AdminController extends Controller
     public function changePassword(){
         return view('backend.layouts.changePassword');
     }
-    public function changPasswordStore(Request $request)
+    public function changePasswordStore(Request $request)
     {
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
@@ -90,7 +91,9 @@ class AdminController extends Controller
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        User::find(auth()->user()->id)->update([
+            'password'=> Hash::make($request->new_password)
+        ]);
 
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
@@ -98,7 +101,7 @@ class AdminController extends Controller
     // Pie chart
     public function userPieChart(Request $request){
         // dd($request->all());
-        $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+        $data = User::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"), DB::raw("DAY(created_at) as day"))
         ->where('created_at', '>', Carbon::today()->subDay(6))
         ->groupBy('day_name','day')
         ->orderBy('day')

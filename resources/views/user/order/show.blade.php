@@ -16,8 +16,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
-            <th>Charge</th>
-            <th>Total Amount</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -26,11 +24,9 @@
         <tr>
             <td>{{$order->id}}</td>
             <td>{{$order->order_number}}</td>
-            <td>{{$order->first_name}} {{$order->last_name}}</td>
+            <td>###</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>${{$order->shipping->price}}</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -77,25 +73,6 @@
                         <td>Order Status</td>
                         <td> : {{$order->status}}</td>
                     </tr>
-                    <tr>
-                      @php
-                          $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-                      @endphp
-                        <td>Shipping Charge</td>
-                        <td> :${{$order->shipping->price}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Amount</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
-                    </tr>
-                    <tr>
-                      <td>Payment Method</td>
-                      <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
-                    </tr>
-                    <tr>
-                        <td>Payment Status</td>
-                        <td> : {{$order->payment_status}}</td>
-                    </tr>
               </table>
             </div>
           </div>
@@ -106,27 +83,27 @@
               <table class="table">
                     <tr class="">
                         <td>Full Name</td>
-                        <td> : {{$order->first_name}} {{$order->last_name}}</td>
+                        <td> : Muhammad Fauzan Bin Mazlam</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td> : {{$order->email}}</td>
+                        <td> : fauzanmazlam88@gmail.com</td>
                     </tr>
                     <tr>
                         <td>Phone No.</td>
-                        <td> : {{$order->phone}}</td>
+                        <td> : 0179174215</td>
                     </tr>
                     <tr>
                         <td>Address</td>
-                        <td> : {{$order->address1}}, {{$order->address2}}</td>
+                        <td> : 123 Jalan Maras</td>
                     </tr>
                     <tr>
                         <td>Country</td>
-                        <td> : {{$order->country}}</td>
+                        <td> : Malaysia</td>
                     </tr>
                     <tr>
-                        <td>Post Code</td>
-                        <td> : {{$order->post_code}}</td>
+                        <td>Postal Code</td>
+                        <td> : 20022</td>
                     </tr>
               </table>
             </div>
