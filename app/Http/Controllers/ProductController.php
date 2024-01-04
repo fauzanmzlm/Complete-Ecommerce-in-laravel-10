@@ -152,7 +152,7 @@ class ProductController extends Controller
         // return $data;
         $status=$product->fill($data)->save();
         if($status){
-            session()->flash('success','Product Successfully updated');
+            session()->flash('success','Equipment Successfully updated');
         }
         else{
             session()->flash('error','Please try again!!');
@@ -172,10 +172,10 @@ class ProductController extends Controller
         $status=$product->delete();
         
         if($status){
-            session()->flash('success','Product successfully deleted');
+            session()->flash('success','Equipment successfully deleted');
         }
         else{
-            session()->flash('error','Error while deleting product');
+            session()->flash('error','Error while deleting equipment');
         }
         return redirect()->route('product.index');
     }

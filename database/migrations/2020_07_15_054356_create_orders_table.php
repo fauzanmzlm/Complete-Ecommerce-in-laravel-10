@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->date('from_date');
             $table->date('to_date');
             $table->enum('status',['pending','confirmed','cancelled','completed'])->default('pending');
+            $table->text('remarks')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->timestamps();
         });

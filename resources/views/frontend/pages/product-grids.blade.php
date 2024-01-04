@@ -131,6 +131,8 @@
                                             <label>Show :</label>
                                             <select class="show" name="show" onchange="this.form.submit();">
                                                 <option value="">Default</option>
+                                                <option value="1" @if(!empty($_GET['show']) && $_GET['show']=='1') selected @endif>01</option>
+                                                <option value="5" @if(!empty($_GET['show']) && $_GET['show']=='5') selected @endif>05</option>
                                                 <option value="9" @if(!empty($_GET['show']) && $_GET['show']=='9') selected @endif>09</option>
                                                 <option value="15" @if(!empty($_GET['show']) && $_GET['show']=='15') selected @endif>15</option>
                                                 <option value="21" @if(!empty($_GET['show']) && $_GET['show']=='21') selected @endif>21</option>
@@ -142,7 +144,6 @@
                                             <select class='sortBy' name='sortBy' onchange="this.form.submit();">
                                                 <option value="">Default</option>
                                                 <option value="title" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='title') selected @endif>Name</option>
-                                                <option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price') selected @endif>Price</option>
                                                 <option value="category" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='category') selected @endif>Category</option>
                                                 <option value="brand" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='brand') selected @endif>Brand</option>
                                             </select>

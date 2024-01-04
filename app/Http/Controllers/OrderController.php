@@ -151,6 +151,63 @@ class OrderController extends Controller
         return redirect()->route('order.index');
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $order=Order::find($id);
+  
+        
+        $data=$request->all();
+
+        $user=User::where('id', $order->user->id)->first();
+
+        if($request->status=='confirmed'){
+            // foreach($order->cart as $cart){
+            //     $product=$cart->product;
+            //     // return $product;
+            //     $product->stock -=$cart->quantity;
+            //     $product->save();
+            // }
+            $details=[
+                'title'=>'Congratulations! Your reservation has been approved and confirmed. The equipment is now reserved for you. Please pick it up on time.',
+                'actionURL'=>route('order.show',$order->id),
+                'fas'=>'fa-file-alt'
+            ];
+            Notification::send($user, new StatusNotification($details));
+        } 
+        
+        if ($request->status=='completed') {
+            $details=[
+                'title'=>'Your reservation period has ended, and the equipment has been successfully returned. Thank you for using our service. If you have any feedback, feel free to share it with us.',
+                'actionURL'=>route('order.show',$order->id),
+                'fas'=>'fa-file-alt'
+            ];
+            Notification::send($user, new StatusNotification($details));
+        }
+
+        if ($request->status=='cancelled') {
+            $details=[
+                'title'=>'Unfortunately, your reservation has been canceled. If you have any questions or concerns, please contact our support team for assistance.',
+                'actionURL'=>route('order.show',$order->id),
+                'fas'=>'fa-file-alt'
+            ];
+            Notification::send($user, new StatusNotification($details));
+        }
+
+        $status=$order->fill($data)->save();
+        if ($status) {
+            $response = [
+                'status' => 'success',
+                'message' => 'Successfully updated booking',
+            ];
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'Error while updating booking',
+            ];
+        }
+        return response()->json($response);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

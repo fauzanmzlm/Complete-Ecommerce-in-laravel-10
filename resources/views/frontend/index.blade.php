@@ -86,7 +86,6 @@
                             <ul class="nav nav-tabs filter-tope-group" id="myTab" role="tablist">
                                 @php
                                     $categories=DB::table('categories')->where('status','active')->where('is_parent',1)->get();
-                                    // dd($categories);
                                 @endphp
                                 @if($categories)
                                 <button class="btn" style="background:black"data-filter="*">
@@ -116,7 +115,7 @@
                                                 @endphp
                                                 <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                 <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                <span class="hot"><i class="fa fa-check"></i></span>
+                                                {{-- <span class="hot"><i class="fa fa-check"></i></span> --}}
                                             </a>
                                             <div class="button-head">
                                                 <div class="product-action">

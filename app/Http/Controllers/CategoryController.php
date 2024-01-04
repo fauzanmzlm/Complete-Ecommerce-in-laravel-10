@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         // return $request->all();
         $this->validate($request,[
-            'title'=>'string|required',
+            'title'=>'string|required|unique:categories,title',
             'summary'=>'string|nullable',
             'photo'=>'string|nullable',
             'status'=>'required|in:active,inactive',

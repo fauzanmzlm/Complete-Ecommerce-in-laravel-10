@@ -110,14 +110,6 @@ class ProductReviewController extends Controller
             $data=$request->all();
             $status=$review->fill($data)->update();
 
-            // $user=User::where('role','admin')->get();
-            // return $user;
-            // $details=[
-            //     'title'=>'Update Product Rating!',
-            //     'actionURL'=>route('product-detail',$product_info->id),
-            //     'fas'=>'fa-star'
-            // ];
-            // Notification::send($user,new StatusNotification($details));
             if($status){
                 session()->flash('success','Review Successfully updated');
             }

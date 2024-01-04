@@ -148,6 +148,8 @@
 
         // Order
         Route::resource('/order', 'OrderController');
+        Route::put('/order/{id}/update-status', [OrderController::class, 'updateStatus'])->name('order.update-status');
+
  
         // Settings
         Route::get('settings', [AdminController::class, 'settings'])->name('settings');

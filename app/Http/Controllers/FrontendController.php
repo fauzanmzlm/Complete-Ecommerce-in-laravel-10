@@ -29,7 +29,6 @@ class FrontendController extends Controller
     {
         $featured = Product::where('status', 'active')
             ->where('is_featured', 1)
-            // ->orderBy('price', 'DESC')
             ->limit(2)
             ->get();
         $posts = Post::where('status', 'active')
@@ -43,7 +42,7 @@ class FrontendController extends Controller
         // return $banner;
         $products = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
-            ->limit(8)
+            // ->limit(8)
             ->get();
         $category = Category::where('status', 'active')
             ->where('is_parent', 1)
@@ -103,18 +102,6 @@ class FrontendController extends Controller
             if ($_GET['sortBy'] == 'title') {
                 $products = $products->where('status', 'active')->orderBy('title', 'ASC');
             }
-            if ($_GET['sortBy'] == 'price') {
-                $products = $products->orderBy('price', 'ASC');
-            }
-        }
-
-        if (!empty($_GET['price'])) {
-            $price = explode('-', $_GET['price']);
-            // return $price;
-            // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
-            // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
-
-            $products->whereBetween('price', $price);
         }
 
         $recent_products = Product::where('status', 'active')
@@ -127,7 +114,7 @@ class FrontendController extends Controller
         } else {
             $products = $products->where('status', 'active')->paginate(9);
         }
-        // Sort by name , price, category
+        // Sort by name, category
 
         return view('frontend.pages.product-grids')
             ->with('products', $products)
@@ -161,18 +148,6 @@ class FrontendController extends Controller
             if ($_GET['sortBy'] == 'title') {
                 $products = $products->where('status', 'active')->orderBy('title', 'ASC');
             }
-            if ($_GET['sortBy'] == 'price') {
-                $products = $products->orderBy('price', 'ASC');
-            }
-        }
-
-        if (!empty($_GET['price'])) {
-            $price = explode('-', $_GET['price']);
-            // return $price;
-            // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
-            // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
-
-            $products->whereBetween('price', $price);
         }
 
         $recent_products = Product::where('status', 'active')
@@ -185,7 +160,7 @@ class FrontendController extends Controller
         } else {
             $products = $products->where('status', 'active')->paginate(6);
         }
-        // Sort by name , price, category
+        // Sort by name , category
 
         return view('frontend.pages.product-lists')
             ->with('products', $products)
@@ -226,16 +201,11 @@ class FrontendController extends Controller
                 }
             }
         }
-        // return $brandURL;
-
-        $priceRangeURL = '';
-        if (!empty($data['price_range'])) {
-            $priceRangeURL .= '&price=' . $data['price_range'];
-        }
+        
         if (request()->is('e-shop.loc/product-grids')) {
-            return redirect()->route('product-grids', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
+            return redirect()->route('product-grids', $catURL . $brandURL . $showURL . $sortByURL);
         } else {
-            return redirect()->route('product-lists', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
+            return redirect()->route('product-lists', $catURL . $brandURL . $showURL . $sortByURL);
         }
     }
     public function productSearch(Request $request)
@@ -248,7 +218,6 @@ class FrontendController extends Controller
             ->orwhere('slug', 'like', '%' . $request->search . '%')
             ->orwhere('description', 'like', '%' . $request->search . '%')
             ->orwhere('summary', 'like', '%' . $request->search . '%')
-            ->orwhere('price', 'like', '%' . $request->search . '%')
             ->orderBy('id', 'DESC')
             ->paginate('9');
         return view('frontend.pages.product-grids')

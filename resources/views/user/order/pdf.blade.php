@@ -112,7 +112,7 @@
     <table class="table table-bordered table-stripe">
       <thead>
         <tr>
-          <th scope="col" class="col-6">Product</th>
+          <th scope="col" class="col-6">Equipment</th>
           <th scope="col" class="col-3">Quantity</th>
         </tr>
       </thead>

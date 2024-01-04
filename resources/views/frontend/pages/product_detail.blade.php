@@ -14,7 +14,7 @@
 	<meta property="og:image" content="{{$product_detail->photo}}">
 	<meta property="og:description" content="{{$product_detail->description}}">
 @endsection
-@section('title','USEBS || PRODUCT DETAIL')
+@section('title','USEBS || EQUIPMENT DETAIL')
 @section('main-content')
 
 		<!-- Breadcrumbs -->
@@ -316,7 +316,7 @@
             <div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Related Products</h2>
+						<h2>Related Equipments</h2>
 					</div>
 				</div>
             </div>

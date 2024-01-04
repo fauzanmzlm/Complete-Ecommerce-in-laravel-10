@@ -37,7 +37,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title'=>'string|required',
+            'title'=>'string|required|unique:brands,title',
         ]);
         $data=$request->all();
         $slug=Str::slug($request->title);
