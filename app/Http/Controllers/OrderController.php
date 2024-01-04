@@ -161,18 +161,17 @@ class OrderController extends Controller
         $user=User::where('id', $order->user->id)->first();
 
         if($request->status=='confirmed'){
-            // foreach($order->cart as $cart){
-            //     $product=$cart->product;
-            //     // return $product;
-            //     $product->stock -=$cart->quantity;
-            //     $product->save();
-            // }
+            foreach($order->cart as $cart){
+                $product=$cart->product;
+                // return $product;
+                $product->stock -=$cart->quantity;
+                $product->save();
+            }
             $details=[
                 'title'=>'Congratulations! Your reservation has been approved and confirmed. The equipment is now reserved for you. Please pick it up on time.',
                 'actionURL'=>route('order.show',$order->id),
                 'fas'=>'fa-file-alt'
             ];
-            Notification::send($user, new StatusNotification($details));
         } 
         
         if ($request->status=='completed') {
@@ -181,7 +180,6 @@ class OrderController extends Controller
                 'actionURL'=>route('order.show',$order->id),
                 'fas'=>'fa-file-alt'
             ];
-            Notification::send($user, new StatusNotification($details));
         }
 
         if ($request->status=='cancelled') {
@@ -190,9 +188,9 @@ class OrderController extends Controller
                 'actionURL'=>route('order.show',$order->id),
                 'fas'=>'fa-file-alt'
             ];
-            Notification::send($user, new StatusNotification($details));
         }
-
+        
+        Notification::send($user, new StatusNotification($details));
         $status=$order->fill($data)->save();
         if ($status) {
             $response = [
