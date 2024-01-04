@@ -38,7 +38,7 @@ class UsersController extends Controller
     {
         $this->validate($request,
         [
-            'name'=>'required|string|max:30',
+            'name'=>'required|string|max:50',
             'personal_id'=>'required|string|max:30|unique:users,personal_id',
             'email'=>'required|string|unique:users',
             'password'=>'required|string|min:8',
@@ -96,7 +96,7 @@ class UsersController extends Controller
         $user=User::findOrFail($id);
         $this->validate($request,
         [
-            'name'=>'required|string|max:30',
+            'name'=>'required|string|max:50',
             'personal_id'=>'required|string|max:30|',
             'email'=>'required|string',
             'role'=>'required|in:admin,user',
